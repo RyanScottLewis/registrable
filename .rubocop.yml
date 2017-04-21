@@ -1,0 +1,46 @@
+AllCops:
+  DefaultFormatter: fuubar
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  Exclude:
+    - "examples/**/*.rb"
+
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - "*.gemspec"
+
+Style/Documentation:
+  Exclude:
+    - "lib/**/version.rb"
+    - "spec/**/*.rb"
+    - "Rakefile"
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*_spec.rb"
+
+Style/EmptyLinesAroundBlockBody:
+  EnforcedStyle: no_empty_lines
+  # SupportedStyles:
+  #   - empty_lines
+  #   - no_empty_lines
+
+Style/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines_except_namespace
+  # SupportedStyles:
+  #   - empty_lines
+  #   - empty_lines_except_namespace
+  #   - empty_lines_special
+  #   - no_empty_lines
+
+Style/EmptyLinesAroundModuleBody:
+  EnforcedStyle: empty_lines_except_namespace
+  # SupportedStyles:
+  #   - empty_lines
+  #   - empty_lines_except_namespace
+  #   - empty_lines_special
+  #   - no_empty_lines
+
+Lint/UnusedMethodArgument:
+  Enabled: false
