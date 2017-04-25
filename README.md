@@ -6,14 +6,51 @@
 
 ### RubyGems: `gem install registrable`
 
-## Usage
+## Examples
+
+### Plugin
+
+```rb
+require 'registrable'
+
+module Plugin
+
+  extend Registrable
+
+  class Base
+    def self.inherited(subclass)
+      identifier = subclass.to_s
+        .split('::').last
+        .gsub(/([a-z0-9])([A-Z])/, '\1_\2')
+        .downcase.to_sym
+
+      Plugin.register(identifier, subclass)
+    end
+  end
+
+end
+
+class MyPlugin < Plugin::Base; end
+class AnotherPlugin < Plugin::Base; end
+```
+
+```rb
+p Plugin.registry.keys                     # => [:my_plugin, :another_plugin]
+p Plugin[:my_plugin] == MyPlugin           # => true
+p Plugin[:another_plugin] == AnotherPlugin # => true
+```
+
+### Role
 
 ```rb
 require 'registrable'
 
 class Role
+
+  extend Registrable
+
   def initialize(read, modify)
-    @read, @modify = create, modify
+    @read, @modify = read, modify
   end
 
   def read?
@@ -23,10 +60,10 @@ class Role
   def modify?
     @modify
   end
+
 end
 
 class User
-  extend Registrable
 
   def initialize(role)
     self.role = role
@@ -35,15 +72,16 @@ class User
   attr_reader :role
 
   def role=(role)
-    role = Role.registry[identifier] || Role.registry[:other] unless role.is_a?(Role)
+    role = Role.registry[role] || Role.registry[:other] unless role.is_a?(Role)
 
     @role = role
   end
+
 end
 
-Role.register(:other, false, false)
-Role.register(:user,  true,  false)
-Role.register(:admin, true,  true)
+Role.register(:other, Role.new(false, false))
+Role.register(:user,  Role.new(true,  false))
+Role.register(:admin, Role.new(true,  true))
 ```
 
 ```rb

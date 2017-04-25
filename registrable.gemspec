@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Ryan Scott Lewis']
   spec.email         = ['ryanscottlewis@gmail.com']
 
-  spec.summary       = "Allows a class to hold a registry of it's instances"
-  spec.description   = "Extend in a class to allow it to hold a registry of it's instances"
+  spec.summary       = 'Allow a class to hold a registry'
+  spec.description   = 'Allow a class to hold a registry, which is a frozen Hash which can only be modified using the #register and #unregister methods'
   spec.homepage      = 'https://github.com/RyanScottLewis/registrable'
   spec.license       = 'MIT'
 
@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'fuubar', '~> 2.2'
   spec.add_development_dependency 'guard-rubocop', '~> 1.2'
   spec.add_development_dependency 'guard-rspec', '~> 4.7'
+  spec.add_development_dependency 'guard-shell', '~> 0.7.1'
   spec.add_development_dependency 'guard-yard', '~> 2.2'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'

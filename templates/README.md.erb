@@ -6,15 +6,41 @@
 
 ### RubyGems: `gem install registrable`
 
-## Usage
+## Examples
+
+### Plugin
+
+```rb
+<%= file('examples/plugin.rb') %>
+```
+
+```rb
+p Plugin.registry.keys                     # => [:my_plugin, :another_plugin]
+p Plugin[:my_plugin] == MyPlugin           # => true
+p Plugin[:another_plugin] == AnotherPlugin # => true
+```
+
+### Role
 
 ```rb
 <%= file('examples/role.rb') %>
 ```
 
 ```rb
+other = User.new(:other)
+
+p other.role.readable?   # => true
+p other.role.modifiable? # => true
+
+user = User.new(:user)
+
+p admin.role.readable?   # => true
+p admin.role.modifiable? # => false
+
 admin = User.new(:admin)
-p admin.role.modify? unless ENV["RSPEC"] # => true
+
+p admin.role.readable?   # => true
+p admin.role.modifiable? # => true
 ```
 
 ## Development

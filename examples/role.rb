@@ -1,22 +1,25 @@
 require 'registrable'
 
 class Role
+
   extend Registrable
 
-  def initialize(readable, modifiable)
-    @readable, @modifiable = readable, modifiable
+  def initialize(read, modify)
+    @read, @modify = read, modify
   end
 
   def readable?
-    @readable
+    @read
   end
 
   def modifiable?
-    @modifiable
+    @modify
   end
+
 end
 
 class User
+
   def initialize(role)
     self.role = role
   end
@@ -28,8 +31,9 @@ class User
 
     @role = role
   end
+
 end
 
-Role.register(:other, false, false)
-Role.register(:user,  true,  false)
-Role.register(:admin, true,  true)
+Role.register(:other, Role.new(false, false))
+Role.register(:user,  Role.new(true,  false))
+Role.register(:admin, Role.new(true,  true))

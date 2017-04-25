@@ -1,46 +1,44 @@
 require 'registrable/version'
 
-# Allow a class to hold a registry of instances
+# Allow a class to hold a registry, which is a frozen Hash which can only be modified using the #register and
+# #unregister methods
 module Registrable
 
-  # All registered instances
+  # All registered objects
   #
   # @return [Hash]
   def registry
     @registry ||= {}.freeze
   end
 
-  # Register an instance
+  # Register an object
   #
   # @param [Object] identifier
-  # @param [Array] arguments The arguments to pass to #initialize
-  # @param [Proc] block The block to pass to #initialize
-  # @return [Object] The instance
-  def register(identifier, *arguments, &block)
+  # @param [Class] registrant The object to register
+  # @return [Class] The registrant
+  def register(identifier, registrant)
     @registry = @registry ? registry.dup : {}
 
-    instance = new(*arguments, &block)
-
-    @registry[identifier] = instance
+    @registry[identifier] = registrant
     @registry.freeze
 
-    instance
+    registrant
   end
 
-  # Unregister an instance
+  # Unregister an object
   #
   # @param [Object] identifier
-  # @return [Object] The instance
+  # @return [Object] The registrant
   def unregister(identifier)
     @registry = @registry ? registry.dup : {}
 
-    instance = @registry.delete(identifier)
+    registrant = @registry.delete(identifier)
     @registry.freeze
 
-    instance
+    registrant
   end
 
-  # Get whether an instance is registered
+  # Get whether an object is registered
   #
   # @param [Object] identifier
   # @return [Boolean]

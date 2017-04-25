@@ -18,7 +18,10 @@ guard :rubocop, all_on_start: false, cli: '--config .rubocop.yml --auto-correct 
 end
 
 guard :yard, server: false do
-  watch(/^(README|LICENSE|CODE_OF_CONDUCT)/)
   watch(%r{lib\/.+\.rb})
   watch(/.yardopts/)
+end
+
+guard :shell do
+  watch(%r{templates/(.+)\.erb}) { |match| `rake #{match[1]}` }
 end

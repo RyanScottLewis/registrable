@@ -12,23 +12,25 @@ RSpec.describe Registrable do
 
   describe '.register' do
     it 'should return correctly' do
-      expect(subject).to register(:mine)
+      expect(subject.register(:foo, :bar)).to eq(:bar)
     end
   end
 
   describe '.unregister' do
-    let(:plugins) { {} }
+    before { subject.register(:foo, :bar) }
 
     it 'should return correctly' do
-      expect(subject).to register(:mine).into(plugins)
-      expect(subject).to unregister(:mine).and_return(plugins[:mine])
+      expect(subject.unregister(:foo)).to eq(:bar)
+      expect(subject).not_to be_registered(:foo)
     end
   end
 
   describe '.registered?' do
+    before { subject.register(:foo, :bar) }
+
     it 'should return correctly' do
-      expect(subject).to register(:mine)
-      expect(subject).to be_registered(:mine)
+      expect(subject).to be_registered(:foo)
+      expect(subject).not_to be_registered(:qux)
     end
   end
 end
