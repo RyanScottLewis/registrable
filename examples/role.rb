@@ -4,16 +4,16 @@ class Role
 
   extend Registrable
 
-  def initialize(read, modify)
-    @read, @modify = read, modify
+  def initialize(readable, modify)
+    @readable, @modifiable = readable, modify
   end
 
   def readable?
-    @read
+    @readable
   end
 
   def modifiable?
-    @modify
+    @modifiable
   end
 
 end
