@@ -35,9 +35,9 @@ class AnotherPlugin < Plugin::Base; end
 ```
 
 ```rb
-p Plugin.registry.keys                     # => [:my_plugin, :another_plugin]
-p Plugin[:my_plugin] == MyPlugin           # => true
-p Plugin[:another_plugin] == AnotherPlugin # => true
+p Plugin.registry.keys                              # => [:my_plugin, :another_plugin]
+p Plugin.registry[:my_plugin] == MyPlugin           # => true
+p Plugin.registry[:another_plugin] == AnotherPlugin # => true
 ```
 
 ### Role
